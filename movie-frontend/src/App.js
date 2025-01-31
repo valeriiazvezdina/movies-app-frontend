@@ -1,10 +1,19 @@
 import './App.css';
 import api from './api/axiosConfig';
 import { useState, useEffect } from 'react';
+import Layout from './components/Layjout';
+import { Routes, Route } from 'react-router-dom';
+import Home from './components/home/Home';
+import Header from './components/header/Header';
+import Trailer from './components/trailer/Trailer';
+import Reviews from './components/reviews/Reviews';
+import NotFound from './components/not-found/NotFound';
 
 function App() {
 
   const [movies, setMovies] = useState();
+  const [movie, setMovie] = useState();
+  const [reviews, setReviews] = useState([]);
 
   const getMovies = async () => {
     try {
@@ -12,9 +21,24 @@ function App() {
       setMovies(response.data);
     }
     catch (err) {
-      console.log(err);
+      console.error(err);
     }
-  }
+  };
+
+  const getMovieByImdbId = async (imdbId) => {
+
+    try {
+      const response = await api.get(`/movies/${imdbId}`);
+      const movie = response.data;
+
+      setMovie(movie);
+      setReviews(movie.reviewIds.map(review => review.body));
+    }
+    catch (error) {
+      console.error(error);
+    }
+
+  };
 
   useEffect(() => {
     getMovies();
@@ -22,7 +46,15 @@ function App() {
 
   return (
     <div className="App">
-
+      <Header />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home movies={movies} />} />
+          <Route path="/trailer/:ytTrailerId" element={<Trailer />}></Route>
+          <Route path="/reviews/:imdbId" element={<Reviews getMovieByImdbId={getMovieByImdbId} movie={movie} reviews={reviews} setReviews={setReviews} />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
