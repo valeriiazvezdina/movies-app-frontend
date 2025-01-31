@@ -11,8 +11,8 @@ const Hero = ({ movies }) => {
 
     const navigate = useNavigate();
 
-    function reviews(movieId) {
-        navigate(`/Reviews/${movieId}`);
+    function reviews(imdbId) {
+        navigate(`/reviews/${imdbId}`);
     }
 
     return (
@@ -31,7 +31,7 @@ const Hero = ({ movies }) => {
                                             <h1>{movie.title}</h1>
                                         </div>
                                         <div className="movie-buttons-container">
-                                            <Link to={`/Trailer/${movie.trailerLink.substring(movie.trailerLink.length - 11)}`}>
+                                            <Link to={`/trailer/${movie.trailerLink.substring(movie.trailerLink.length - 11)}`}>
                                                 <div className="play-button-icon-container">
                                                     <FontAwesomeIcon className="play-button-icon"
                                                         icon={faCirclePlay}

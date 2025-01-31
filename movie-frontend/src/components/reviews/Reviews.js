@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import api from '../../api/axiosConfig';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import ReviewForm from '../reviewForm/ReviewForm';
+import ReviewForm from '../review-form/ReviewForm';
 
 import React from 'react'
 
@@ -19,12 +19,13 @@ const Reviews = ({ getMovieByImdbId, movie, reviews, setReviews }) => {
     const createReview = async (e) => {
         e.preventDefault();
 
-        const review = reviewBody.current;
+        let review = reviewBody.current.value;
 
         try {
-            await api.post("/api/v1/reviews", { reviewBody: review.value, imdbId: imdbId });
-            const updatedReviews = [...reviews, { body: review.value }];
-            review.value = "";
+            await api.post("/reviews", { reviewBody: review, imdbId: imdbId });
+            const updatedReviews = [...reviews, { body: review }];
+            // TODO: change clearing the review to get request OR do not show there the review and move it to another section
+            review = "";
             setReviews(updatedReviews);
         }
         catch (err) {
@@ -39,14 +40,14 @@ const Reviews = ({ getMovieByImdbId, movie, reviews, setReviews }) => {
             </Row>
             <Row className="mt-2">
                 <Col>
-                    <img src={movie?.poster} alt="" />
+                    <img src={movie?.poster} alt={movie?.title} />
                 </Col>
-                <Col>
+                <Col key={movie?.imdbId}>
                     {
                         <>
                             <Row>
                                 <Col>
-                                    <ReviewForm handleSubmit={createReview} revText={reviewBody} labelText="Write a Review?" />
+                                    <ReviewForm handleSubmit={createReview} reviewBody={reviewBody} labelText="Write a Review?" />
                                 </Col>
                             </Row>
                             <Row>
@@ -57,9 +58,9 @@ const Reviews = ({ getMovieByImdbId, movie, reviews, setReviews }) => {
                         </>
                     }
                     {
-                        reviews?.map((r) => {
+                        reviews?.map((r, i) => {
                             return (
-                                <>
+                                <React.Fragment key={i}>
                                     <Row>
                                         <Col>{r.body}</Col>
                                     </Row>
@@ -68,7 +69,7 @@ const Reviews = ({ getMovieByImdbId, movie, reviews, setReviews }) => {
                                             <hr />
                                         </Col>
                                     </Row>
-                                </>
+                                </React.Fragment>
                             )
                         })
                     }

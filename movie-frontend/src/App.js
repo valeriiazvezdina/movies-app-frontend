@@ -7,7 +7,7 @@ import Home from './components/home/Home';
 import Header from './components/header/Header';
 import Trailer from './components/trailer/Trailer';
 import Reviews from './components/reviews/Reviews';
-import NotFound from './components/notFound/NotFound';
+import NotFound from './components/not-found/NotFound';
 
 function App() {
 
@@ -29,10 +29,10 @@ function App() {
 
     try {
       const response = await api.get(`/movies/${imdbId}`);
-      const singleMovie = response.data;
+      const movie = response.data;
 
-      setMovie(singleMovie);
-      setReviews(singleMovie.reviews);
+      setMovie(movie);
+      setReviews(movie.reviewIds.map(review => review.body));
     }
     catch (error) {
       console.error(error);
@@ -50,8 +50,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home movies={movies} />} />
-          <Route path="/Trailer/:ytTrailerId" element={<Trailer />}></Route>
-          <Route path="/Reviews/:movieId" element={<Reviews getMovieData={getMovieData} movie={movie} reviews={reviews} setReviews={setReviews} />}></Route>
+          <Route path="/trailer/:ytTrailerId" element={<Trailer />}></Route>
+          <Route path="/reviews/:imdbId" element={<Reviews getMovieByImdbId={getMovieByImdbId} movie={movie} reviews={reviews} setReviews={setReviews} />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>
