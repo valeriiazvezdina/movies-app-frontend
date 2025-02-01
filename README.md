@@ -12,7 +12,7 @@
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/movies-api-frontend.git
+   git clone git@github.com:valeriiazvezdina/movies-app-frontend.git
    ```
 2. Navigate to the project directory:
    ```sh
