@@ -22,14 +22,15 @@ const Reviews = ({ getMovieByImdbId, movie, reviews, setReviews }) => {
 
 		try {
 			await api.post('/reviews', { reviewBody: review, imdbId: imdbId });
-			const updatedReviews = [...reviews, { body: review }];
-			// TODO: change clearing the review to get request OR do not show there the review and move it to another section
+			const updatedReviews = [...reviews, review];
 			review = '';
 			setReviews(updatedReviews);
 		} catch (err) {
-			console.error(err);
+			console.error('Error posting review:', err);
 		}
 	};
+
+	console.log('reviews', reviews);
 
 	return (
 		<Container>
@@ -61,20 +62,21 @@ const Reviews = ({ getMovieByImdbId, movie, reviews, setReviews }) => {
 							</Row>
 						</>
 					}
-					{reviews?.map((r, i) => {
-						return (
-							<React.Fragment key={i}>
-								<Row>
-									<Col>{r.body}</Col>
-								</Row>
-								<Row>
-									<Col>
-										<hr />
-									</Col>
-								</Row>
-							</React.Fragment>
-						);
-					})}
+					{reviews &&
+						reviews.map((r, i) => {
+							return (
+								<React.Fragment key={i}>
+									<Row>
+										<Col>{r}</Col>
+									</Row>
+									<Row>
+										<Col>
+											<hr />
+										</Col>
+									</Row>
+								</React.Fragment>
+							);
+						})}
 				</Col>
 			</Row>
 			<Row>

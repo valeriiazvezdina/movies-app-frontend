@@ -1,8 +1,8 @@
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 const ReviewForm = ({ handleSubmit, reviewBody, labelText, defaultValue }) => {
 	return (
-		<Form onSubmit={handleSubmit}>
+		<Form>
 			<Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
 				<Form.Label>{labelText}</Form.Label>
 				<Form.Control
@@ -12,7 +12,9 @@ const ReviewForm = ({ handleSubmit, reviewBody, labelText, defaultValue }) => {
 					defaultValue={defaultValue}
 				/>
 			</Form.Group>
-			{/* <Button variant="outline-info" onClick={handleSubmit}>Submit</Button> */}
+			<Button variant='outline-info' onClick={handleSubmit}>
+				Submit
+			</Button>
 		</Form>
 	);
 };
