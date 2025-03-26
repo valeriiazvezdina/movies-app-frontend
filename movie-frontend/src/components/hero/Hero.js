@@ -53,12 +53,14 @@ const Hero = ({ movies }) => {
 	return (
 		<div className='movie-carousel-container'>
 			<Carousel>
-				{movies?.map((movie, imdbId) => (
-					<Paper key={imdbId}>
+				{movies?.map(movie => (
+					<Paper key={movie.imdbId}>
 						<div className='movie-card-container'>
 							<div
 								className='movie-card'
-								style={{ '--img': `url(${movie.backdrops[0]})` }}
+								style={{
+									'--img': `url(${movie.backdrops?.[0] || defaultBackdrop})`,
+								}}
 							>
 								<div className='movie-details'>
 									<div className='movie-poster'>
