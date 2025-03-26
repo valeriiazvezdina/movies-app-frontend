@@ -30,8 +30,6 @@ const Reviews = ({ getMovieByImdbId, movie, reviews, setReviews }) => {
 		}
 	};
 
-	console.log('reviews', reviews);
-
 	return (
 		<Container>
 			<Row>
