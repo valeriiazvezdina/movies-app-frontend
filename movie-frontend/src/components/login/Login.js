@@ -22,7 +22,6 @@ function Login({ setLoggedIn }) {
 					withCredentials: true,
 				}
 			);
-			console.log('Logged in', email, password);
 			setLoggedIn(true);
 			navigate('/');
 		} catch (err) {

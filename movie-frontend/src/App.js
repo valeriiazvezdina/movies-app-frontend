@@ -72,8 +72,14 @@ function App() {
 							/>
 						}
 					></Route>
-					<Route path='/login' element={<Login />}></Route>
-					<Route path='/register' element={<Register />}></Route>
+					<Route
+						path='/login'
+						element={<Login setLoggedIn={setLoggedIn} />}
+					></Route>
+					<Route
+						path='/register'
+						element={<Register setLoggedIn={setLoggedIn} />}
+					></Route>
 					<Route path='*' element={<NotFound />}></Route>
 				</Route>
 			</Routes>
