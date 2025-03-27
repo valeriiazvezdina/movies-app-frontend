@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import api from '../../api/axiosConfig';
-import { Container, Row, Col } from 'react-bootstrap';
 
 const MovieDetails = () => {
 	const { id } = useParams();
@@ -36,10 +36,24 @@ const MovieDetails = () => {
 				</Col>
 				<Col md={8}>
 					<h2>{movie.title}</h2>
-					<p><strong>Release Date:</strong> {movie.releaseDate}</p>
-					<p><strong>Description:</strong> {movie.description}</p>
-					<p><strong>Genres:</strong> {movie.genres?.join(', ')}</p>
-					<p><strong>Actors:</strong> {movie.actors?.join(', ')}</p>
+					<p>
+						<strong>Release Date:</strong> {movie.releaseDate}
+					</p>
+					<p>
+						<strong>Genres:</strong> {movie.genres?.join(', ')}
+					</p>
+					<p>
+						<strong>Trailer link:</strong>{' '}
+						<a
+							href={movie.trailerLink}
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							<Button variant='danger' size='sm'>
+								Watch Trailer
+							</Button>
+						</a>
+					</p>
 				</Col>
 			</Row>
 
@@ -49,14 +63,13 @@ const MovieDetails = () => {
 					{reviews.length === 0 ? (
 						<p>No reviews yet.</p>
 					) : (
-						reviews.map((review, index) => (
-							<div key={index} className='mb-3 p-2 border rounded'>
-								<p>{review.text}</p>
-								<small className='text-muted'>
-									{review.userEmail} | Rating: {review.rating} | {new Date(review.createdAt).toLocaleString()}
-								</small>
-							</div>
-						))
+						<ul className='list-unstyled'>
+							{reviews.map((review, index) => (
+								<li key={index} className='mb-2 p-2 border rounded'>
+									{review.body}
+								</li>
+							))}
+						</ul>
 					)}
 				</Col>
 			</Row>

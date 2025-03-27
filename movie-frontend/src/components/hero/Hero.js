@@ -18,6 +18,11 @@ const Hero = ({ movies }) => {
 		navigate(`/reviews/${imdbId}`);
 	}
 
+	function movieDetails(movie) {
+		setSelectedMovie(movie);
+		navigate(`/movie/${movie.imdbId}`);
+	}
+
 	function MyVerticallyCenteredModal(props) {
 		if (!props.movie) return null;
 
@@ -95,21 +100,15 @@ const Hero = ({ movies }) => {
 											</div>
 
 											<div className='movie-details-button-container'>
-												{/* <Button
+												<Button
 													variant='info'
 													style={{
 														width: '100px',
 													}}
-													onClick={() => {
-														setModalShow(true);
-														setSelectedMovie(movie);
-													}}
+													onClick={() => movieDetails(movie)}
 												>
 													Details
-												</Button> */}
-												<Link to={`/movie/${movie.imdbId}`}>
-													View Full Details
-												</Link>
+												</Button>
 											</div>
 										</div>
 									</div>
