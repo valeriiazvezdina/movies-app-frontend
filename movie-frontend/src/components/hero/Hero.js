@@ -95,7 +95,7 @@ const Hero = ({ movies }) => {
 											</div>
 
 											<div className='movie-details-button-container'>
-												<Button
+												{/* <Button
 													variant='info'
 													style={{
 														width: '100px',
@@ -106,7 +106,10 @@ const Hero = ({ movies }) => {
 													}}
 												>
 													Details
-												</Button>
+												</Button> */}
+												<Link to={`/movie/${movie.imdbId}`}>
+													View Full Details
+												</Link>
 											</div>
 										</div>
 									</div>

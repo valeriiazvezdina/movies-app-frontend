@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 import Header from './components/header/Header';
 import Home from './components/home/Home';
 import Login from './components/login/Login';
+import MovieDetails from './components/movie-details/MovieDetails';
 import NotFound from './components/not-found/NotFound';
 import Register from './components/register/Register';
 import Reviews from './components/reviews/Reviews';
@@ -81,6 +82,7 @@ function App() {
 						element={<Register setLoggedIn={setLoggedIn} />}
 					></Route>
 					<Route path='*' element={<NotFound />}></Route>
+					<Route path='/movie/:id' element={<MovieDetails />} />
 				</Route>
 			</Routes>
 		</div>
